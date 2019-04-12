@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.mangabank">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -9,13 +14,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".Interface.UltimosAdicionadosActivity"
+            android:label="@string/title_activity_ultimos_adicionados"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Interface.TodosOsTitulosActivity"
+            android:label="@string/title_activity_todos_os_titulos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Interface.VolumesTituloActivity"
+            android:label="@string/title_activity_volumes_titulo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Interface.TitulosEditoraActivity"
+            android:label="@string/title_activity_titulos_editora"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Interface.EditorasActivity"
+            android:label="@string/title_activity_editoras"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Interface.CrudTituloActivity"
+            android:label="@string/title_activity_crud_titulo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Interface.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

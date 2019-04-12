@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="preto">#000</color>
+    <color name="branco">#fff</color>
+
+    <color name="azul">#0093E7</color>
+
+    <color name="darkometrat">#9DDFC1</color>
+    <color name="smith">#83CEC4</color>
+    <color name="stay">#6AB0AE</color>
+    <color name="foam">#4B9CA5</color>
+    <color name="mc_blue">#416F89</color>
 </resources>

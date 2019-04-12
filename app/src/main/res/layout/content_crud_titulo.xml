@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Interface.CrudTituloActivity"
+    tools:showIn="@layout/activity_crud_titulo">
+
+    <TextView
+        android:id="@+id/lbl_h1_caracteristicas_titulo"
+
+        style="@style/AppTheme.h1_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/lbl_caracteristicas"
+        app:fontFamily="@font/poppins_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="160dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_h1_caracteristicas_titulo"
+        app:layout_constraintStart_toStartOf="@+id/lbl_h1_caracteristicas_titulo"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_h1_caracteristicas_titulo">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lbl_editora"
+                style="@style/AppTheme.lbl_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lbl_editora" />
+
+            <EditText
+                android:id="@+id/txt_editora"
+                style="@style/AppTheme.txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/hint_txt_pesquisa_editora"
+                android:inputType="textPersonName"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/lbl_nome_titulo"
+                style="@style/AppTheme.lbl_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lbl_nome_titulo" />
+
+            <EditText
+                android:id="@+id/txt_nome_titulo"
+                style="@style/AppTheme.txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/hint_txt_pesquisa_titulo"
+                android:inputType="textPersonName"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/lbl_total_de_volumes"
+                style="@style/AppTheme.lbl_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lbl_total_de_volumes" />
+
+            <EditText
+                android:id="@+id/txt_total_de_volumes"
+                style="@style/AppTheme.txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/hint_total_de_volumes"
+                android:inputType="number"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/lbl_tipo_de_titulo"
+                style="@style/AppTheme.lbl_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lbl_tipo_de_titulo" />
+
+            <Spinner
+                android:id="@+id/spin_tipo_de_titulo"
+                style="@style/AppTheme.txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/tipos_de_titulo" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/lbl_estado_do_titulo"
+                style="@style/AppTheme.lbl_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lbl_estado_do_titulo" />
+
+            <Spinner
+                android:id="@+id/spin_estado_do_titulo"
+                style="@style/AppTheme.txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/estados_do_titulo" />
+        </TableRow>
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>

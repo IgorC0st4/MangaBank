@@ -1,0 +1,200 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f89040d515ff53704e15b03fa3484d67",
+    "entities": [
+      {
+        "tableName": "Editoras",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Editoras_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Editoras_id` ON `${TABLE_NAME}` (`id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Titulos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_editora` INTEGER NOT NULL, `nome` TEXT NOT NULL, `tipoDeTitulo` TEXT NOT NULL, `estadoDoTitulo` TEXT NOT NULL, `numTotalDeVolumes` INTEGER NOT NULL, FOREIGN KEY(`id_editora`) REFERENCES `Editoras`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_editora",
+            "columnName": "id_editora",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoDeTitulo",
+            "columnName": "tipoDeTitulo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estadoDoTitulo",
+            "columnName": "estadoDoTitulo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numTotalDeVolumes",
+            "columnName": "numTotalDeVolumes",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Titulos_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Titulos_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_Titulos_id_editora",
+            "unique": false,
+            "columnNames": [
+              "id_editora"
+            ],
+            "createSql": "CREATE  INDEX `index_Titulos_id_editora` ON `${TABLE_NAME}` (`id_editora`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Editoras",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_editora"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Volumes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `num` INTEGER NOT NULL, `id_titulo` INTEGER NOT NULL, `nomeDoVolume` TEXT NOT NULL, `isLido` INTEGER NOT NULL, FOREIGN KEY(`id_titulo`) REFERENCES `Titulos`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num",
+            "columnName": "num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_titulo",
+            "columnName": "id_titulo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeDoVolume",
+            "columnName": "nomeDoVolume",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isLido",
+            "columnName": "isLido",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Volumes_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Volumes_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_Volumes_id_titulo",
+            "unique": false,
+            "columnNames": [
+              "id_titulo"
+            ],
+            "createSql": "CREATE  INDEX `index_Volumes_id_titulo` ON `${TABLE_NAME}` (`id_titulo`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Titulos",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_titulo"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f89040d515ff53704e15b03fa3484d67\")"
+    ]
+  }
+}

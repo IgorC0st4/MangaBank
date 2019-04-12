@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">MangaBank</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_crud_titulo">CrudTituloActivity</string>
+    <string name="title_activity_editoras">EditorasActivity</string>
+    <string name="title_activity_titulos_editora">TitulosEditoraActivity</string>
+    <string name="title_activity_volumes_titulo">VolumesTituloActivity</string>
+    <string name="title_activity_todos_os_titulos">TodosOsTitulosActivity</string>
+    <string name="title_activity_ultimos_adicionados">UltimosAdicionadosActivity</string>
+    <string name="lbl_qtde_de_volumes">Quantidade:</string>
+
+    <string name="hint_txt_pesquisa_editora">Nome da editora</string>
+    <string name="lbl_btn_editoras">Editoras</string>
+    <string name="lbl_btn_todos">Todos os títulos</string>
+    <string name="lbl_btn_ultimos">Últimos adicionados</string>
+    <string name="hint_txt_pesquisa_titulo">Nome do título</string>
+    <string name="lbl_editora">Editora:</string>
+    <string name="lbl_nome_titulo">Nome:</string>
+    <string name="lbl_total_de_volumes">N° Volumes:</string>
+    <string name="hint_total_de_volumes">0 como padrão</string>
+    <string name="lbl_tipo_de_titulo">Tipo:</string>
+    <string name="lbl_estado_do_titulo">Situação:</string>
+    <string name="lbl_caracteristicas">Dados do título</string>
+    <string name="hint_txt_pesquisa_volume">Número do volume</string>
+
+    <array name="tipos_de_titulo">
+        <item>HQ</item>
+        <item>Mangá</item>
+        <item>Light Novel</item>
+        <item>Graphic Novel</item>
+    </array>
+
+    <array name="estados_do_titulo">
+        <item>Anunciado</item>
+        <item>Em andamento</item>
+        <item>Finalizado</item>
+        <item>Cancelado</item>
+    </array>
 </resources>
