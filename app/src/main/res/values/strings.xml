@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MangaBank</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">MangaBank</string>
     <string name="title_activity_crud_titulo">CrudTituloActivity</string>
     <string name="title_activity_editoras">EditorasActivity</string>
     <string name="title_activity_titulos_editora">TitulosEditoraActivity</string>
