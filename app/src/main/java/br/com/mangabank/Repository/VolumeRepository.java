@@ -26,6 +26,15 @@ public class VolumeRepository {
             return false;
         }
     }
+    public boolean salvarLista(List<Volume> volumes) {
+        try {
+            return new SalvarLista().execute(volumes).get();
+        } catch (Exception e) {
+            Log.e("ERRO REPO VOLUME", e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public boolean deletar(Volume volume) {
         try {
@@ -103,6 +112,21 @@ public class VolumeRepository {
         protected Boolean doInBackground(Volume... volumes) {
             try {
                 AppDatabase.getAppDatabase(context).volumeDao().salvar(volumes[0]);
+                return true;
+            } catch (Exception e) {
+                Log.e("ERRO ASYNC VOLUME", e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+    private class SalvarLista extends AsyncTask<List<Volume>, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(List<Volume>... lists) {
+            try {
+                AppDatabase.getAppDatabase(context).volumeDao().salvarLista(lists[0]);
                 return true;
             } catch (Exception e) {
                 Log.e("ERRO ASYNC VOLUME", e.getMessage());

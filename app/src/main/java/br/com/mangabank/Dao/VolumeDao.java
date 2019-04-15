@@ -11,6 +11,9 @@ public interface VolumeDao {
     @Insert
     void salvar (Volume volume);
 
+    @Insert
+    void salvarLista (List<Volume> volumes);
+
     @Update
     void atualizar (Volume volume);
 

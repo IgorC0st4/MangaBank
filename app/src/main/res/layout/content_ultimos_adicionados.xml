@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Interface.UltimosAdicionadosActivity"
     tools:showIn="@layout/activity_ultimos_adicionados">
+
     <ListView
         android:id="@+id/list_volumes"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -90,4 +90,14 @@ public class Volume implements Serializable {
     public String toString() {
         return nomeDoVolume;
     }
+
+    public String toStringCompleto() {
+        return "Volume{" +
+                "id=" + id +
+                ", num=" + num +
+                ", id_titulo=" + id_titulo +
+                ", nomeDoVolume='" + nomeDoVolume + '\'' +
+                ", isLido=" + isLido +
+                '}';
+    }
 }

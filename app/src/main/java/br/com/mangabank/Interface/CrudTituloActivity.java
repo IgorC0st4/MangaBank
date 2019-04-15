@@ -19,6 +19,7 @@ import br.com.mangabank.Util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 public class CrudTituloActivity extends AppCompatActivity {
     @BindView(R.id.txt_editora)
@@ -95,6 +96,16 @@ public class CrudTituloActivity extends AppCompatActivity {
                 spin_estado.setSelection(i);
                 break;
             }
+        }
+    }
+
+    @OnItemSelected(R.id.spin_tipo_de_titulo)
+    public void limitar(int position){
+        if(tipos[position].equals("One-shot")){
+            txt_total_volumes.setText("1");
+            txt_total_volumes.setEnabled(false);
+        }else{
+            txt_total_volumes.setEnabled(true);
         }
     }
 

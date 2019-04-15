@@ -26,8 +26,10 @@
     <array name="tipos_de_titulo">
         <item>HQ</item>
         <item>Mangá</item>
+        <item>One-shot</item>
         <item>Light Novel</item>
         <item>Graphic Novel</item>
+        <item>Livro</item>
     </array>
 
     <array name="estados_do_titulo">

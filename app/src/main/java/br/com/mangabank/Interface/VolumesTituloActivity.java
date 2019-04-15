@@ -32,6 +32,7 @@ import br.com.mangabank.Util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
 
@@ -57,7 +58,8 @@ public class VolumesTituloActivity extends AppCompatActivity {
     private List<Volume> volumes;
 
     static final int SALVAR = Menu.FIRST;
-    static final int ATUALIZAR = Menu.FIRST + 1;
+    static final int SALVAR_VARIOS = Menu.FIRST + 1;
+    static final int ATUALIZAR = Menu.FIRST + 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,7 @@ public class VolumesTituloActivity extends AppCompatActivity {
                 Volume volume = volumes.get(position);
                 volume.setLido(v.isChecked());
                 atualizarVolume(volume);
+                Log.e("" + volume.getNum(), volume.toStringCompleto());
             }
         });
 
@@ -117,8 +120,8 @@ public class VolumesTituloActivity extends AppCompatActivity {
                 return false;
             }
         });
-        for(int i = 0; i < volumes.size(); i++)  {
-            list_volumes.setItemChecked(i,volumes.get(i).isLido());
+        for (int i = 0; i < volumes.size(); i++) {
+            list_volumes.setItemChecked(i, volumes.get(i).isLido());
         }
 
     }
@@ -131,87 +134,15 @@ public class VolumesTituloActivity extends AppCompatActivity {
         } else
             Toast.makeText(VolumesTituloActivity.this, "Houve um erro ao salvar as alterações!", Toast.LENGTH_SHORT).show();
 
-
     }
 
     public void editarVolume(int position) {
-        final Volume volume = volumes.get(position);
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Editar Volume");
-        alertDialog.setMessage("Número do volume: ");
-
-        final EditText input = new EditText(this);
-
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-
-        input.setLayoutParams(lp);
-        input.setText("" + volume.getNum());
-        alertDialog.setView(input);
-
-        alertDialog.setPositiveButton("Salvar",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        String strNum = input.getText().toString();
-
-                        if (Utils.isCampoVazio(strNum)) {
-                            Toast.makeText(VolumesTituloActivity.this, "Campo vazio!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            volume.setNum(Integer.parseInt(strNum));
-                            volume.setNomeDoVolume(titulo.getNome() + " - " + strNum);
-
-                            atualizarVolume(volume);
-                        }
-
-
-                    }
-                });
-        alertDialog.show();
-
+        criarDialog("Editar volume", "Nome do volume:", ATUALIZAR, position);
     }
+
     @OnClick(R.id.fab)
-    public void dialogAdicionarVolume() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Novo volume");
-        alertDialog.setMessage("Número do volume:");
-        final EditText input = new EditText(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-        alertDialog.setView(input);
-
-        alertDialog.setPositiveButton("Salvar",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Volume volume = new Volume();
-
-                        String strNumVolume = input.getText().toString().trim();
-
-                        if (Utils.isCampoVazio(strNumVolume)) {
-                            Toast.makeText(VolumesTituloActivity.this, "Campo vazio!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            volume.setNum(Integer.parseInt(strNumVolume));
-                            volume.setNomeDoVolume(titulo.getNome() + " - " + strNumVolume);
-                            volume.setId_titulo(titulo.getId());
-                            volume.setLido(false);
-
-                            if (volumeRepository.salvar(volume)) {
-                                Toast.makeText(VolumesTituloActivity.this, "Volume salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                                volumes = volumeRepository.listar(titulo.getId());
-                                populaTela();
-                            } else {
-                                Toast.makeText(VolumesTituloActivity.this, "Houve um erro ao salvar o volume!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                });
-        alertDialog.setNegativeButton("Cancelar", null);
-        alertDialog.show();
+    public void adicionarVolume() {
+        criarDialog("Adicionar volume", "Número do volume:", SALVAR, 0);
     }
 
     @OnTextChanged(R.id.txt_volume_pesquisa)
@@ -230,9 +161,98 @@ public class VolumesTituloActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         menu.add(0, SALVAR, 0, "Novo Volume");
+        menu.add(0, SALVAR_VARIOS, 0, "Novos Volumes");
         menu.add(0, ATUALIZAR, 0, "Editar");
 
         return true;
+    }
+
+    public void criarDialog(String title, String message, final int acao, final int position) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        final EditText input = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        if (acao == ATUALIZAR)
+            input.setText(volumes.get(position).getNomeDoVolume());
+        alertDialog.setView(input);
+
+        alertDialog.setPositiveButton("Salvar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Volume volume = new Volume();
+                        switch (acao) {
+                            case SALVAR:
+
+                                String strNumVolume = input.getText().toString().trim();
+
+                                if (Utils.isCampoVazio(strNumVolume)) {
+                                    Toast.makeText(VolumesTituloActivity.this, "Campo vazio!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    volume.setNum(Integer.parseInt(strNumVolume));
+                                    volume.setNomeDoVolume(titulo.getNome() + " - " + strNumVolume);
+                                    volume.setId_titulo(titulo.getId());
+                                    volume.setLido(false);
+
+                                    if (volumeRepository.salvar(volume)) {
+                                        Toast.makeText(VolumesTituloActivity.this, "Volume salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                                        volumes = volumeRepository.listar(titulo.getId());
+                                        populaTela();
+                                    } else {
+                                        Toast.makeText(VolumesTituloActivity.this, "Houve um erro ao salvar o volume!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                break;
+                            case SALVAR_VARIOS:
+                                int qtdeSalvar = Integer.parseInt(input.getText().toString());
+                                int qtdeMaxima = titulo.getNumTotalDeVolumes();
+                                if (((qtdeMaxima != 0) || (qtdeMaxima < qtdeSalvar)) && (volumes.size() + qtdeSalvar > qtdeMaxima)) {
+                                    Toast.makeText(VolumesTituloActivity.this, "Quantidade inválida de volumes. Máx: " + qtdeMaxima, Toast.LENGTH_LONG).show();
+                                } else {
+                                    List<Volume> salvar = new ArrayList<>();
+                                    int numVolume = 1;
+                                    if (volumes.size() != 0) {
+                                        numVolume = volumes.size() + 1;
+                                    }
+                                    for (int i = 0; i < qtdeSalvar; i++) {
+                                        volume = new Volume();
+                                        volume.setNum(numVolume);
+                                        volume.setNomeDoVolume(titulo.getNome() + " - " + numVolume);
+                                        volume.setId_titulo(titulo.getId());
+                                        volume.setLido(false);
+                                        numVolume++;
+                                        salvar.add(volume);
+                                    }
+                                    if (volumeRepository.salvarLista(salvar)) {
+                                        Toast.makeText(VolumesTituloActivity.this, "Volumes salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                                        volumes = volumeRepository.listar(titulo.getId());
+                                        populaTela();
+                                    } else {
+                                        Toast.makeText(VolumesTituloActivity.this, "Houve um erro ao salvar os volumes!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                break;
+                            case ATUALIZAR:
+                                volume = volumes.get(position);
+                                String strNome = input.getText().toString();
+
+                                if (Utils.isCampoVazio(strNome)) {
+                                    Toast.makeText(VolumesTituloActivity.this, "Campo vazio!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    volume.setNomeDoVolume(strNome);
+                                    atualizarVolume(volume);
+                                }
+                                break;
+                        }
+
+                    }
+                });
+        alertDialog.setNegativeButton("Cancelar", null);
+        alertDialog.show();
     }
 
     @Override
@@ -250,10 +270,13 @@ public class VolumesTituloActivity extends AppCompatActivity {
 
         switch (id) {
             case SALVAR:
-                dialogAdicionarVolume();
+                criarDialog("Adicionar volume", "Número do volume:", SALVAR, 0);
+                return true;
+            case SALVAR_VARIOS:
+                criarDialog("Adicionars volumes", "Quantidade de volumes:", SALVAR_VARIOS, 0);
                 return true;
             case ATUALIZAR:
-                Toast.makeText(this, "Dê um clique em um item para editar!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Dê um clique e segure em um item para editar!", Toast.LENGTH_LONG).show();
                 return true;
         }
 
