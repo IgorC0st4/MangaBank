@@ -1,16 +1,19 @@
 package br.com.mangabank.Interface;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import br.com.mangabank.R;
+import br.com.mangabank.Util.ConverterArquivos;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,37 +43,23 @@ public class ConverterActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnExportar)
     public void exportar() {
-
-        requestPermissionLer();
-        requestPermissionEscrever();
-
-    }
-
-
-    public void requestPermissionEscrever() {
-        //USUARIA DAR A PERMISSAO PARA ESCREVER
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSAO_REQUEST);
-            }
+        String JSON = "";
+        try{
+            JSON = new ConverterArquivos(ConverterActivity.this, progressBar, txtMensagem).execute().get();
+        }catch (Exception e){
+            Log.e("ERRO CONVERSAO",e.getMessage());
+            e.printStackTrace();
         }
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ "costa.igor0108@gmail.com"});
+        email.putExtra(Intent.EXTRA_SUBJECT, "LISTA MANGÁS");
+        email.putExtra(Intent.EXTRA_TEXT, JSON);
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "E-mail"));
+
     }
 
-
-    public void requestPermissionLer() {
-        //USUARIA DAR A PERMISSAO PARA LER
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSAO_REQUEST);
-            }
-        }
-    }
 
     @OnClick(R.id.btnImportar)
     public void importar() {
