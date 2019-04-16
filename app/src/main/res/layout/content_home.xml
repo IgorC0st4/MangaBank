@@ -44,4 +44,17 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_todos"
         app:layout_constraintStart_toStartOf="@+id/btn_todos"
         app:layout_constraintTop_toBottomOf="@+id/btn_todos" />
+
+    <Button
+        android:id="@+id/btnExportarImportar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/formato_botao_azul"
+        android:text="@string/lbl_exportar_importar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_ultimos"
+        app:layout_constraintStart_toStartOf="@+id/btn_ultimos"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ultimos" />
 </android.support.constraint.ConstraintLayout>

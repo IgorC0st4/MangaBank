@@ -86,6 +86,15 @@ public class VolumeRepository {
         }
     }
 
+    public List<Volume> listar() {
+        try {
+            return new Listar().execute().get();
+        } catch (Exception e) {
+            Log.e("ERRO REPO VOLUME", e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
     public List<Volume> listarUltimos() {
         try {
             return new ListarUltimos().execute().get();
@@ -208,6 +217,20 @@ public class VolumeRepository {
         protected List<Volume> doInBackground(Long... longs) {
             try {
                 return AppDatabase.getAppDatabase(context).volumeDao().getAllFromTitulo(longs[0]);
+            } catch (Exception e) {
+                Log.e("ERRO ASYNC VOLUME", e.getMessage());
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    private class Listar extends AsyncTask<Void, Void, List<Volume>> {
+
+        @Override
+        protected List<Volume> doInBackground(Void... voids) {
+            try {
+                return AppDatabase.getAppDatabase(context).volumeDao().getAll();
             } catch (Exception e) {
                 Log.e("ERRO ASYNC VOLUME", e.getMessage());
                 e.printStackTrace();

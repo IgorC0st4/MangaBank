@@ -45,4 +45,10 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UltimosAdicionadosActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.btnExportarImportar)
+    public void telaExportarImportar(){
+        Intent intent = new Intent(this, ConverterActivity.class);
+        startActivity(intent);
+    }
 }

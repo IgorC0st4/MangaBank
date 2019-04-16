@@ -23,6 +23,9 @@ public interface VolumeDao {
     @Delete
     void deletarLista (List<Volume> volumes);
 
+    @Query("SELECT * FROM Volumes ORDER BY id_titulo AND id ASC")
+    List<Volume> getAll();
+
     @Query("SELECT * FROM Volumes WHERE id_titulo = :id_titulo ORDER BY num ASC")
     List<Volume> getAllFromTitulo(long id_titulo);
 

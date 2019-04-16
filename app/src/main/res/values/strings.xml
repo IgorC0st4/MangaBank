@@ -38,4 +38,8 @@
         <item>Finalizado</item>
         <item>Cancelado</item>
     </array>
+    <string name="title_activity_converter">ConverterActivity</string>
+    <string name="lbl_exportar_importar">Exportar/Importar registros</string>
+    <string name="lbl_btn_importar">Importar</string>
+    <string name="lbl_btn_exportar">Exportar</string>
 </resources>

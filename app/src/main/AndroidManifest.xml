@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.mangabank">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,9 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Interface.ConverterActivity"
+            android:label="@string/title_activity_converter"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Interface.UltimosAdicionadosActivity"
             android:label="@string/title_activity_ultimos_adicionados"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Interface.TodosOsTitulosActivity"
             android:label="@string/title_activity_todos_os_titulos"
