@@ -12,6 +12,9 @@ public interface EditoraDao {
     @Insert
     void salvar (Editora editora);
 
+    @Insert
+    void salvarLista (List<Editora> editoras);
+
     @Update
     void atualizar (Editora editora);
 

@@ -26,6 +26,10 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
 
     private String path;
 
+    private List<Editora> editoras;
+    private List<Titulo> titulos;
+    private List<Volume> volumes;
+
     public ImportarRegistros(Context context, ProgressBar progressBar, TextView textView, String path) {
         this.progressBar = progressBar;
         this.textView = textView;
@@ -34,6 +38,8 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
         editoraRepository = new EditoraRepository(context);
         tituloRepository = new TituloRepository(context);
         volumeRepository = new VolumeRepository(context);
+
+        editoras = new ArrayList<>();
     }
 
     @Override
@@ -72,14 +78,24 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
                 Editora editora = new Editora();
                 editora.setId(jsonObject.getLong("id"));
                 editora.setNome(jsonObject.getString("nome"));
-                editoraRepository.salvar(editora);
+                editoras.add(editora);
             }
         }catch (Exception e){
             Log.e("ERRO JSON", e.getMessage());
             e.printStackTrace();
             return false;
         }
+
+        try{
+            editoraRepository.salvarLista(editoras);
+        }catch (Exception e){
+            Log.e("ERRO SALVAR", e.getMessage());
+            e.printStackTrace();
+            return false;
+
+        }
         publishProgress();
+/*
 
         try{
             jsonArray = new JSONArray(strTitulos);
@@ -123,6 +139,7 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
             return false;
         }
         publishProgress();
+*/
 
 
         return true;

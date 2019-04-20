@@ -13,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Interface.CrudVolumeActivity"
+            android:label="@string/title_activity_crud_volume"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Interface.ConverterActivity"
             android:label="@string/title_activity_converter"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Interface.UltimosAdicionadosActivity"
             android:label="@string/title_activity_ultimos_adicionados"

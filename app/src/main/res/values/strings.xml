@@ -42,4 +42,9 @@
     <string name="lbl_exportar_importar">Exportar/Importar registros</string>
     <string name="lbl_btn_importar">Importar</string>
     <string name="lbl_btn_exportar">Exportar</string>
+    <string name="title_activity_crud_editora">CrudEditoraActivity</string>
+    <string name="title_activity_crud_volume">CrudVolumeActivity</string>
+    <string name="lbl_titulo_volume">Título:</string>
+    <string name="lbl_numero_volume">Número:</string>
+    <string name="hint_txt_nome_volume">(Opcional)</string>
 </resources>

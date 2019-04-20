@@ -27,6 +27,16 @@ public class EditoraRepository {
         }
     }
 
+    public boolean salvarLista(List<Editora> editoras) {
+        try {
+            return new SalvarLista().execute(editoras).get();
+        } catch (Exception e) {
+            Log.e("ERRO REPO EDITORA", e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean deletar(Editora editora) {
         try {
             return new Deletar().execute(editora).get();
@@ -84,6 +94,21 @@ public class EditoraRepository {
         protected Boolean doInBackground(Editora... editoras) {
             try {
                 AppDatabase.getAppDatabase(context).editoraDao().salvar(editoras[0]);
+                return true;
+            } catch (Exception e) {
+                Log.e("ERRO ASYNC EDITORA", e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+    private class SalvarLista extends AsyncTask<List<Editora>, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(List<Editora>... lists) {
+            try {
+                AppDatabase.getAppDatabase(context).editoraDao().salvarLista(lists[0]);
                 return true;
             } catch (Exception e) {
                 Log.e("ERRO ASYNC EDITORA", e.getMessage());

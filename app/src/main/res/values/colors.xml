@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="preto">#000</color>
-    <color name="branco">#fff</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
 
-    <color name="azul">#0093E7</color>
+    <color name="pale_blue">#68A8CA</color>
+    <color name="precipitation">#40677F</color>
+    <color name="wet">#7FCAC0</color>
+    <color name="innuendo">#F0F8F7</color>
+    <color name="blue">#4044AF</color>
 
-    <color name="darkometrat">#9DDFC1</color>
-    <color name="smith">#83CEC4</color>
-    <color name="stay">#6AB0AE</color>
-    <color name="foam">#4B9CA5</color>
-    <color name="mc_blue">#416F89</color>
+
+    <!--<color name="sleepy">#9F9797</color>
+    <color name="red4">#48484D</color>
+    <color name="concealed">#211F38</color>
+    <color name="whole">#1A111F</color>
+    <color name="shiney">#040105</color>-->
+
+    <!--
+        <color name="azul">#0093E7</color>
+
+        <color name="darkometrat">#9DDFC1</color>
+        <color name="smith">#83CEC4</color>
+        <color name="stay">#6AB0AE</color>
+        <color name="foam">#4B9CA5</color>
+        <color name="mc_blue">#416F89</color>-->
 </resources>

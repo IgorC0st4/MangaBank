@@ -3,9 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/azul</item>
-        <item name="colorPrimaryDark">@color/mc_blue</item>
-        <item name="colorAccent">@color/darkometrat</item>
+        <item name="colorPrimary">@color/precipitation</item>
+        <item name="colorPrimaryDark">@color/precipitation</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:windowBackground">@mipmap/bg_home</item>
+        <item name="android:textColorHint">@color/pale_blue</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -15,27 +17,27 @@
 
 
     <style name="AppTheme.h1_black">
-        <item name="android:textColor">@color/preto</item>
         <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="AppTheme.h1_white">
-        <item name="android:textColor">@color/branco</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="AppTheme.lbl_black">
-        <item name="android:textColor">@color/preto</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
 
     <style name="AppTheme.txt">
-        <item name="android:textColor">@color/preto</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/poppins</item>
     </style>
