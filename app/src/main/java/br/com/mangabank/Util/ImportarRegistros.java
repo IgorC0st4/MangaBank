@@ -12,17 +12,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.mangabank.Database.AppDatabase;
 import br.com.mangabank.Model.*;
 import br.com.mangabank.Repository.*;
 
 public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
 
+    private Context context;
     private ProgressBar progressBar;
     private TextView textView;
-
-    private EditoraRepository editoraRepository;
-    private TituloRepository tituloRepository;
-    private VolumeRepository volumeRepository;
 
     private String path;
 
@@ -34,12 +32,11 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
         this.progressBar = progressBar;
         this.textView = textView;
         this.path = path;
-
-        editoraRepository = new EditoraRepository(context);
-        tituloRepository = new TituloRepository(context);
-        volumeRepository = new VolumeRepository(context);
+        this.context = context;
 
         editoras = new ArrayList<>();
+        titulos = new ArrayList<>();
+        volumes = new ArrayList<>();
     }
 
     @Override
@@ -87,7 +84,7 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
         }
 
         try{
-            editoraRepository.salvarLista(editoras);
+            AppDatabase.getAppDatabase(context).editoraDao().salvarLista(editoras);
         }catch (Exception e){
             Log.e("ERRO SALVAR", e.getMessage());
             e.printStackTrace();
@@ -95,7 +92,6 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
 
         }
         publishProgress();
-/*
 
         try{
             jsonArray = new JSONArray(strTitulos);
@@ -110,12 +106,21 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
                 titulo.setNumTotalDeVolumes(jsonObject.getInt("numTotalDeVolumes"));
                 titulo.setTipoDeTitulo(jsonObject.getString("tipoDeTitulo"));
 
-                tituloRepository.salvar(titulo);
+                titulos.add(titulo);
             }
         }catch (Exception e){
             Log.e("ERRO JSON", e.getMessage());
             e.printStackTrace();
             return false;
+        }
+
+        try{
+            AppDatabase.getAppDatabase(context).tituloDao().salvarLista(titulos);
+        }catch (Exception e){
+            Log.e("ERRO SALVAR", e.getMessage());
+            e.printStackTrace();
+            return false;
+
         }
         publishProgress();
 
@@ -131,16 +136,22 @@ public class ImportarRegistros extends AsyncTask<Void, Void, Boolean> {
                 volume.setNomeDoVolume(jsonObject.getString("nomeDoVolume"));
                 volume.setNum(jsonObject.getInt("num"));
 
-                volumeRepository.salvar(volume);
+                volumes.add(volume);
             }
         }catch (Exception e){
             Log.e("ERRO JSON", e.getMessage());
             e.printStackTrace();
             return false;
         }
-        publishProgress();
-*/
+        try{
+            AppDatabase.getAppDatabase(context).volumeDao().salvarLista(volumes);
+        }catch (Exception e){
+            Log.e("ERRO SALVAR", e.getMessage());
+            e.printStackTrace();
+            return false;
 
+        }
+        publishProgress();
 
         return true;
 

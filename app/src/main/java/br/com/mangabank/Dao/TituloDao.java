@@ -11,6 +11,9 @@ public interface TituloDao {
     @Insert
     void salvar (Titulo titulo);
 
+    @Insert
+    void salvarLista (List<Titulo> titulos);
+
     @Update
     void atualizar (Titulo titulo);
 
