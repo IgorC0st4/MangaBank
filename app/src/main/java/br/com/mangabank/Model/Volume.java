@@ -7,11 +7,13 @@ import java.io.Serializable;
 
 
 @Entity(tableName = "Volumes",
-        foreignKeys = {@ForeignKey(entity = Titulo.class,
-                parentColumns = "id",
-                childColumns = "id_titulo")},
-        indices = {@Index(value = {"id"}, unique = true),
-                @Index(value = {"id_titulo"})})
+        foreignKeys = {@ForeignKey( entity = Titulo.class,
+                                    parentColumns = "id",
+                                    childColumns = "id_titulo",
+                                    onDelete = ForeignKey.CASCADE,
+                                    onUpdate = ForeignKey.CASCADE)},
+        indices = { @Index(value = {"id"}, unique = true),
+                    @Index(value = {"id_titulo"})})
 public class Volume implements Serializable {
 
     @NonNull

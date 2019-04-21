@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f89040d515ff53704e15b03fa3484d67",
+    "identityHash": "7be0cb442c5c5715fb93c2c600951705",
     "entities": [
       {
         "tableName": "Editoras",
@@ -41,7 +41,7 @@
       },
       {
         "tableName": "Titulos",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_editora` INTEGER NOT NULL, `nome` TEXT NOT NULL, `tipoDeTitulo` TEXT NOT NULL, `estadoDoTitulo` TEXT NOT NULL, `numTotalDeVolumes` INTEGER NOT NULL, FOREIGN KEY(`id_editora`) REFERENCES `Editoras`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_editora` INTEGER NOT NULL, `nome` TEXT NOT NULL, `tipoDeTitulo` TEXT NOT NULL, `estadoDoTitulo` TEXT NOT NULL, `numTotalDeVolumes` INTEGER NOT NULL, FOREIGN KEY(`id_editora`) REFERENCES `Editoras`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -107,8 +107,8 @@
         "foreignKeys": [
           {
             "table": "Editoras",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
             "columns": [
               "id_editora"
             ],
@@ -120,7 +120,7 @@
       },
       {
         "tableName": "Volumes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `num` INTEGER NOT NULL, `id_titulo` INTEGER NOT NULL, `nomeDoVolume` TEXT NOT NULL, `isLido` INTEGER NOT NULL, FOREIGN KEY(`id_titulo`) REFERENCES `Titulos`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `num` INTEGER NOT NULL, `id_titulo` INTEGER NOT NULL, `nomeDoVolume` TEXT NOT NULL, `isLido` INTEGER NOT NULL, FOREIGN KEY(`id_titulo`) REFERENCES `Titulos`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -180,8 +180,8 @@
         "foreignKeys": [
           {
             "table": "Titulos",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
             "columns": [
               "id_titulo"
             ],
@@ -194,7 +194,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f89040d515ff53704e15b03fa3484d67\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7be0cb442c5c5715fb93c2c600951705\")"
     ]
   }
 }

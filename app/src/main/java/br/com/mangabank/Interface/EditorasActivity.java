@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,14 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mangabank.Model.Editora;
@@ -35,6 +31,9 @@ import butterknife.OnTextChanged;
 
 public class EditorasActivity extends AppCompatActivity {
 
+    @BindView(R.id.list_editoras_deletar)
+    ListView list_editoras_deletar;
+
     @BindView(R.id.list_editoras)
     ListView list_editoras;
 
@@ -44,11 +43,15 @@ public class EditorasActivity extends AppCompatActivity {
     @BindView(R.id.txt_nome_pesquisa)
     EditText txt_nome_pesquisa;
 
+
     private EditoraRepository editoraRepository;
     private List<Editora> editoras;
+    private boolean deletar = false;
 
     static final int SALVAR = Menu.FIRST;
     static final int ATUALIZAR = Menu.FIRST + 1;
+    static final int DELETAR = Menu.FIRST + 2;
+    static final int CANCELAR = Menu.FIRST + 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +69,37 @@ public class EditorasActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        editoras = editoraRepository.listar();
         populaTela();
     }
 
-
+    @SuppressLint("NewApi")
     private void populaTela() {
-        ArrayAdapter<Editora> adapter = new ArrayAdapter<Editora>(this, android.R.layout.simple_list_item_1, editoras);
-        list_editoras.setAdapter(adapter);
-        list_editoras.setVisibility(View.VISIBLE);
+        editoras = editoraRepository.listar();
+        if (deletar) {
+            list_editoras.setVisibility(View.GONE);
+            list_editoras_deletar.setVisibility(View.VISIBLE);
+            list_editoras_deletar.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            ArrayAdapter<Editora> adapter = new ArrayAdapter<Editora>(this, android.R.layout.simple_list_item_multiple_choice, editoras);
+            list_editoras.setAdapter(adapter);
+            list_editoras_deletar.setVisibility(View.VISIBLE);
+            txt_nome_pesquisa.setEnabled(false);
+        } else {
+            list_editoras.setVisibility(View.VISIBLE);
+            list_editoras_deletar.setVisibility(View.GONE);
+            ArrayAdapter<Editora> adapter = new ArrayAdapter<Editora>(this, android.R.layout.simple_list_item_1, editoras);
+            list_editoras.setAdapter(adapter);
+            list_editoras.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @OnItemClick(R.id.list_editoras_deletar)
+    public void marcar(int position){
+
     }
 
     @OnItemClick(R.id.list_editoras)
     public void chamarTelaDeTitulos(int position) {
-
         Editora editora = editoras.get(position);
         Intent intent = new Intent(this, TitulosEditoraActivity.class);
         intent.putExtra("editora", editora);
@@ -87,7 +107,7 @@ public class EditorasActivity extends AppCompatActivity {
     }
 
 
-    @OnItemLongClick(R.id.list_editoras)
+    @OnItemLongClick(R.id.list_editoras_deletar)
     public boolean editarEditora(int position) {
         final Editora editora = editoras.get(position);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -179,10 +199,11 @@ public class EditorasActivity extends AppCompatActivity {
 
         menu.add(0, SALVAR, 0, "Nova Editora");
         menu.add(0, ATUALIZAR, 0, "Editar");
+        menu.add(0, DELETAR, 0, "Deletar");
+        menu.add(0, CANCELAR, 0, "Cancelar");
 
         return true;
     }
-
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -199,8 +220,16 @@ public class EditorasActivity extends AppCompatActivity {
             case ATUALIZAR:
                 Toast.makeText(this, "Dê um clique longo em um item para editar!", Toast.LENGTH_LONG).show();
                 return true;
+            case DELETAR:
+                deletar = true;
+                populaTela();
+                return true;
+            case CANCELAR:
+                deletar = false;
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }
